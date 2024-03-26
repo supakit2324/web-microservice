@@ -12,14 +12,14 @@ import { ApiBody, ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { UsersService } from './users.service';
 import { createUserDto } from './dto/create-users.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { userEntyty } from './entities/user.entity';
+import { userEntity } from './entities/user.entity';
 import ReqUser from 'src/decorators/req-user.decorator';
 import { usersInterface } from './interfaces/users.interface';
 import { changePasswordDto } from './dto/change-password.dto';
 import { ChangePasswordUserValidationPipe } from './pipes/change-password-user-validation.pipe';
 import { ChangePasswordEntyty } from './entities/change-password.entity';
 import { updateUserDto } from './dto/update-user.dto';
-import { updateUserEntyty } from './entities/update-user.entity';
+import { updateUserEntity } from './entities/update-user.entity';
 import { UseRoles } from 'src/decorators/role.decorator';
 import { rolesUserEnum } from './enum/roles-user.enum';
 import { registerUserValidationPipe } from './pipes/register-user-validation.pipe';
@@ -54,7 +54,7 @@ export class UsersController {
   @ApiBearerAuth()
   @UseRoles(rolesUserEnum.USER, rolesUserEnum.ADMIN)
   @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  async getMe(@ReqUser() user: usersInterface): Promise<userEntyty> {
+  async getMe(@ReqUser() user: usersInterface): Promise<userEntity> {
     return user;
   }
 
@@ -67,7 +67,7 @@ export class UsersController {
   @UseGuards(JwtAuthGuard, JwtRoleGuard)
   @ApiResponse({
     status: 200,
-    type: updateUserEntyty,
+    type: updateUserDto,
   })
   async updateUser(
     @ReqUser() user: usersInterface,
@@ -94,7 +94,7 @@ export class UsersController {
   @UseGuards(JwtAuthGuard, JwtRoleGuard)
   @ApiResponse({
     status: 200,
-    type: ChangePasswordEntyty,
+    type: changePasswordDto,
   })
   async changePassword(
     @ReqUser() user: usersInterface,

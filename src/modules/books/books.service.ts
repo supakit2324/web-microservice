@@ -48,14 +48,16 @@ export class BooksService {
     );
   }
 
-  deleteBook(bookId: string): Observable<any> {
-    return this.booksServiceRMQ.send(
-      {
-        cmd: BOOKS_CMD,
-        method: 'delete-book',
-      },
-      bookId,
-    );
+  deleteBook(bookId: string): Promise<BooksInterface> {
+    return lastValueFrom(
+      this.booksServiceRMQ.send(
+        {
+          cmd: BOOKS_CMD,
+          method: 'delete-book',
+        },
+        bookId,
+      )
+    )
   }
 
   async getPagination(

@@ -4,6 +4,7 @@ import { Max, Min } from 'class-validator';
 
 export class UsersHistoryQueryDto {
   @ApiProperty({
+    type: Number,
     example: 1,
   })
   @Type(() => Number)
@@ -11,6 +12,7 @@ export class UsersHistoryQueryDto {
   page: number;
 
   @ApiProperty({
+    type: Number,
     example: 20,
   })
   @Type(() => Number)

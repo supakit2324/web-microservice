@@ -14,7 +14,7 @@ import { UsersLoginEntity } from './entities/user-login-entity';
 import { LoginService } from '../login/login.service';
 import { AmountLoginDTO } from '../login/dto/login.dto';
 
-@Controller('users')
+@Controller('auth')
 @ApiTags('auth')
 export class AuthController {
   private readonly logger = new Logger(AuthController.name);

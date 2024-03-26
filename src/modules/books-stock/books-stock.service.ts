@@ -6,7 +6,7 @@ import { BooksStockInterface } from './interfaces/books-stock.interface';
 import { BooksStockQueryDto } from './dto/books-stock-query.dto';
 import { PaginationResponseInterface } from 'src/interfaces/pagination.interface';
 import { BooksStockEntity } from './entities/books-stock.entity';
-import { updateBooksStockInterface } from './interfaces/update-books-stock.interface';
+import { UpdateBooksStockInterface } from './interfaces/update-books-stock.interface';
 
 @Injectable()
 export class BooksStockService {
@@ -26,7 +26,7 @@ export class BooksStockService {
 
   updateStock(
     bookId: string,
-    body: updateBooksStockInterface,
+    body: UpdateBooksStockInterface,
   ): Observable<any> {
     return this.booksStockService.emit(
       {

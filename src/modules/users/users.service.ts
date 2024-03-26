@@ -10,7 +10,7 @@ import { updateUserDto } from './dto/update-user.dto';
 export class UsersService {
   @Inject(RMQService.USERS) private readonly usersServiceQmq: ClientProxy;
 
-  async registerUser(body: createUserDto): Promise<Observable<any>> {
+  registerUser(body: createUserDto): Observable<any> {
     return this.usersServiceQmq.emit(
       {
         cmd: USER_CMD,
