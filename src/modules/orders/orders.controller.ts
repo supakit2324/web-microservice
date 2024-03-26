@@ -21,6 +21,7 @@ import { UsersHistoryQueryDto } from './dto/users-history-query.dto';
 import { UseRoles } from 'src/decorators/role.decorator';
 import { rolesUserEnum } from '../users/enum/roles-user.enum';
 import { JwtRoleGuard } from '../auth/guards/jwt-role.guard';
+import { CreateOrderEntity } from './entities/create-order.entity';
 
 @Controller('orders')
 @ApiTags('user')
@@ -37,12 +38,12 @@ export class OrdersController {
   @Post('buy-book')
   @ApiResponse({
     status: 200,
-    description: 'Success',
+    type: CreateOrderEntity
   })
   async buyBook(
     @Body(createOrderBooksValidationPipe) body: createOrderDTO,
     @ReqUser() user: usersInterface,
-  ): Promise<void> {
+  ): Promise<CreateOrderEntity> {
     const { book, bookStock, quantity } = body;
     try {
       await this.ordersService.createOrder({
@@ -51,6 +52,7 @@ export class OrdersController {
         quantity: body.quantity,
         totalPrice: book.price * body.quantity,
       });
+      
     } catch (e) {
       this.logger.error(
         `catch on buyBook-userOrder: ${e?.message ?? JSON.stringify(e)}`,
@@ -59,7 +61,7 @@ export class OrdersController {
         message: e?.message ?? e,
       });
     }
-
+  
     try {
       await this.booksStockService.updateStock(body.bookStock.bookId, {
         quantity: bookStock.quantity - quantity,
@@ -74,7 +76,16 @@ export class OrdersController {
         message: e?.message ?? e,
       });
     }
+
+    const order = {
+      userId: user.userId,
+      bookStockId: bookStock.bookId,
+      quantity: body.quantity,
+      totalPrice: book.price * body.quantity
+    }
+    return order
   }
+  
 
   @Get('history')
   @ApiResponse({

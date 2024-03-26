@@ -17,7 +17,7 @@ import ReqUser from 'src/decorators/req-user.decorator';
 import { usersInterface } from './interfaces/users.interface';
 import { changePasswordDto } from './dto/change-password.dto';
 import { ChangePasswordUserValidationPipe } from './pipes/change-password-user-validation.pipe';
-import { ChangePasswordEntyty } from './entities/change-password.entity';
+import { ChangePasswordEntity } from './entities/change-password.entity';
 import { updateUserDto } from './dto/update-user.dto';
 import { updateUserEntity } from './entities/update-user.entity';
 import { UseRoles } from 'src/decorators/role.decorator';

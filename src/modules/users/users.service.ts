@@ -3,7 +3,7 @@ import { ClientProxy } from '@nestjs/microservices';
 import { RMQService, USER_CMD } from 'src/constants';
 import { createUserDto } from './dto/create-users.dto';
 import { Observable } from 'rxjs';
-import { ChangePasswordEntyty } from './entities/change-password.entity';
+import { ChangePasswordEntity } from './entities/change-password.entity';
 import { updateUserDto } from './dto/update-user.dto';
 
 @Injectable()
@@ -23,7 +23,7 @@ export class UsersService {
   changePasswordUser(
     userId: string,
     hashPassword: string,
-  ): Observable<ChangePasswordEntyty> {
+  ): Observable<ChangePasswordEntity> {
     return this.usersServiceQmq.emit(
       {
         cmd: USER_CMD,
