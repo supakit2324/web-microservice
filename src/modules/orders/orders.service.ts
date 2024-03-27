@@ -10,7 +10,7 @@ import UsersOrderHistoryQueryEntity from './entities/users-order-history-query.e
 export class OrdersService {
   @Inject(RMQService.BOOKS) private readonly ordersServiceRMQ: ClientProxy;
 
-  createOrder(body: OrdersInterface): Observable<any> {
+  createOrder(body: OrdersInterface): Observable<OrdersInterface> {
     return this.ordersServiceRMQ.emit(
       {
         cmd: ORDERS_CMD,
