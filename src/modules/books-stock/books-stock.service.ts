@@ -27,7 +27,7 @@ export class BooksStockService {
   updateStock(
     bookId: string,
     body: UpdateBooksStockInterface,
-  ): Observable<any> {
+  ): Observable<UpdateBooksStockInterface> {
     return this.booksStockService.emit(
       {
         cmd: BOOKSSTOCK_CMD,
