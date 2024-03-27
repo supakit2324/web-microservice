@@ -14,11 +14,11 @@ import { CreateUserDto } from './dto/create-users.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { userEntity } from './entities/user.entity';
 import ReqUser from 'src/decorators/req-user.decorator';
-import { usersInterface } from './interfaces/users.interface';
+import { UsersInterface } from './interfaces/users.interface';
 import { ChangePasswordDto } from './dto/change-password.dto';
 import { ChangePasswordUserValidationPipe } from './pipes/change-password-user-validation.pipe';
 import { ChangePasswordEntity } from './entities/change-password.entity';
-import { updateUserDto } from './dto/update-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { updateUserEntity } from './entities/update-user.entity';
 import { UseRoles } from 'src/decorators/role.decorator';
 import { rolesUserEnum } from './enum/roles-user.enum';
@@ -54,24 +54,24 @@ export class UsersController {
   @ApiBearerAuth()
   @UseRoles(rolesUserEnum.USER, rolesUserEnum.ADMIN)
   @UseGuards(JwtAuthGuard, JwtRoleGuard)
-  async getMe(@ReqUser() user: usersInterface): Promise<userEntity> {
+  async getMe(@ReqUser() user: UsersInterface): Promise<userEntity> {
     return user;
   }
 
   @Put('update')
   @ApiBody({
-    type: updateUserDto,
+    type: UpdateUserDto,
   })
   @ApiBearerAuth()
   @UseRoles(rolesUserEnum.USER, rolesUserEnum.ADMIN)
   @UseGuards(JwtAuthGuard, JwtRoleGuard)
   @ApiResponse({
     status: 200,
-    type: updateUserDto,
+    type: UpdateUserDto,
   })
   async updateUser(
-    @ReqUser() user: usersInterface,
-    @Body() update: updateUserDto,
+    @ReqUser() user: UsersInterface,
+    @Body() update: UpdateUserDto,
   ): Promise<void> {
     try {
       await this.usersService.updateUser(user.userId, update);
@@ -97,7 +97,7 @@ export class UsersController {
     type: ChangePasswordDto,
   })
   async changePassword(
-    @ReqUser() user: usersInterface,
+    @ReqUser() user: UsersInterface,
     @Body(ChangePasswordUserValidationPipe) body: ChangePasswordDto,
   ): Promise<void> {
     try {

@@ -7,7 +7,7 @@ import {
   UseGuards,
 } from '@nestjs/common';
 import { ApiBody, ApiTags, ApiResponse } from '@nestjs/swagger';
-import { loginUserDto } from '../auth/dto/user-login.dto';
+import { LoginUserDto } from '../auth/dto/user-login.dto';
 import { AuthService } from '../auth/auth.service';
 import { LoginAuthGuard } from './guards/login-auth.guard';
 import { UsersLoginEntity } from './entities/user-login-entity';
@@ -26,14 +26,14 @@ export class AuthController {
   @Post('login')
   @UseGuards(LoginAuthGuard)
   @ApiBody({
-    type: loginUserDto,
+    type: LoginUserDto,
   })
   @ApiResponse({
     status: 200,
     type: UsersLoginEntity,
   })
   async loginUser(
-    @Body() body: loginUserDto,
+    @Body() body: LoginUserDto,
     payload: AmountLoginDTO = { amountLogin: 1 },
   ) {
     const { email, password } = body;

@@ -14,7 +14,7 @@ import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { CreateOrderBooksValidationPipe } from './pipe/buy-books-validation.pipe';
 import { CreateOrderDTO } from './dto/create-order.dto';
 import ReqUser from 'src/decorators/req-user.decorator';
-import { usersInterface } from '../users/interfaces/users.interface';
+import { UsersInterface } from '../users/interfaces/users.interface';
 import { BooksStockService } from '../books-stock/books-stock.service';
 import UsersOrderHistoryQueryEntity from './entities/users-order-history-query.entity';
 import { UsersHistoryQueryDto } from './dto/users-history-query.dto';
@@ -42,7 +42,7 @@ export class OrdersController {
   })
   async buyBook(
     @Body(CreateOrderBooksValidationPipe) body: CreateOrderDTO,
-    @ReqUser() user: usersInterface,
+    @ReqUser() user: UsersInterface,
   ): Promise<CreateOrderEntity> {
     const { book, bookStock, quantity } = body;
     try {
@@ -94,7 +94,7 @@ export class OrdersController {
     type: UsersOrderHistoryQueryEntity,
   })
   async getHistoryByOrder(
-    @ReqUser() user: usersInterface,
+    @ReqUser() user: UsersInterface,
     @Query() query: UsersHistoryQueryDto,
   ): Promise<UsersOrderHistoryQueryEntity> {
     try {

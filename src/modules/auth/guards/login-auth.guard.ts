@@ -10,8 +10,8 @@ import {
 import * as bcrypt from 'bcrypt';
 import { AuthGuard } from '@nestjs/passport';
 import { plainToInstance } from 'class-transformer';
-import { usersInterface } from 'src/modules/users/interfaces/users.interface';
-import { loginUserDto } from '../dto/user-login.dto';
+import { UsersInterface } from 'src/modules/users/interfaces/users.interface';
+import { LoginUserDto } from '../dto/user-login.dto';
 
 import { Cache } from '@nestjs/cache-manager';
 
@@ -31,9 +31,9 @@ export class LoginAuthGuard extends AuthGuard('local') {
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
 
-    const body = plainToInstance(loginUserDto, request.body);
+    const body = plainToInstance(LoginUserDto, request.body);
 
-    let user: usersInterface;
+    let user: UsersInterface;
     try {
       user = await this.authService.getByEmail(body.email);
     } catch (e) {
