@@ -6,7 +6,7 @@ import {
   Inject,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { changePasswordDto } from '../dto/change-password.dto';
+import { ChangePasswordDto } from '../dto/change-password.dto';
 import { hash } from 'bcrypt';
 
 export class ChangePasswordUserValidationPipe implements PipeTransform {
@@ -16,7 +16,7 @@ export class ChangePasswordUserValidationPipe implements PipeTransform {
     @Inject(ConfigService) private readonly configService: ConfigService,
   ) {}
 
-  async transform(body: changePasswordDto): Promise<changePasswordDto> {
+  async transform(body: ChangePasswordDto): Promise<ChangePasswordDto> {
     if (body.password !== body.confirmPassword) {
       throw new BadRequestException(
         'Password and confirm password do not match.',

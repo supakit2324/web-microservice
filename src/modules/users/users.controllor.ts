@@ -10,12 +10,12 @@ import {
 } from '@nestjs/common';
 import { ApiBody, ApiTags, ApiBearerAuth, ApiResponse } from '@nestjs/swagger';
 import { UsersService } from './users.service';
-import { createUserDto } from './dto/create-users.dto';
+import { CreateUserDto } from './dto/create-users.dto';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
 import { userEntity } from './entities/user.entity';
 import ReqUser from 'src/decorators/req-user.decorator';
 import { usersInterface } from './interfaces/users.interface';
-import { changePasswordDto } from './dto/change-password.dto';
+import { ChangePasswordDto } from './dto/change-password.dto';
 import { ChangePasswordUserValidationPipe } from './pipes/change-password-user-validation.pipe';
 import { ChangePasswordEntity } from './entities/change-password.entity';
 import { updateUserDto } from './dto/update-user.dto';
@@ -33,10 +33,10 @@ export class UsersController {
 
   @Post('register')
   @ApiBody({
-    type: createUserDto,
+    type: CreateUserDto,
   })
   async createUser(
-    @Body(registerUserValidationPipe) body: createUserDto,
+    @Body(registerUserValidationPipe) body: CreateUserDto,
   ): Promise<void> {
     try {
       await this.usersService.registerUser(body);
@@ -87,18 +87,18 @@ export class UsersController {
 
   @Put('change-password')
   @ApiBody({
-    type: changePasswordDto,
+    type: ChangePasswordDto,
   })
   @ApiBearerAuth()
   @UseRoles(rolesUserEnum.USER, rolesUserEnum.ADMIN)
   @UseGuards(JwtAuthGuard, JwtRoleGuard)
   @ApiResponse({
     status: 200,
-    type: changePasswordDto,
+    type: ChangePasswordDto,
   })
   async changePassword(
     @ReqUser() user: usersInterface,
-    @Body(ChangePasswordUserValidationPipe) body: changePasswordDto,
+    @Body(ChangePasswordUserValidationPipe) body: ChangePasswordDto,
   ): Promise<void> {
     try {
       await this.usersService.changePasswordUser(

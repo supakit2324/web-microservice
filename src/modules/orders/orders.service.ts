@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { ORDERS_CMD, RMQService } from 'src/constants';
 import { Observable, lastValueFrom } from 'rxjs';
-import { ordersInterface } from './interfaces/orders.interface';
+import { OrdersInterface } from './interfaces/orders.interface';
 import { UsersHistoryQueryDto } from './dto/users-history-query.dto';
 import UsersOrderHistoryQueryEntity from './entities/users-order-history-query.entity';
 
@@ -10,7 +10,7 @@ import UsersOrderHistoryQueryEntity from './entities/users-order-history-query.e
 export class OrdersService {
   @Inject(RMQService.BOOKS) private readonly ordersServiceRMQ: ClientProxy;
 
-  createOrder(body: ordersInterface): Observable<any> {
+  createOrder(body: OrdersInterface): Observable<any> {
     return this.ordersServiceRMQ.emit(
       {
         cmd: ORDERS_CMD,

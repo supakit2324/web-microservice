@@ -11,8 +11,8 @@ import {
 import { ApiBearerAuth, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { OrdersService } from './orders.service';
 import { JwtAuthGuard } from '../auth/guards/jwt-auth.guard';
-import { createOrderBooksValidationPipe } from './pipe/buy-books-validation.pipe';
-import { createOrderDTO } from './dto/create-order.dto';
+import { CreateOrderBooksValidationPipe } from './pipe/buy-books-validation.pipe';
+import { CreateOrderDTO } from './dto/create-order.dto';
 import ReqUser from 'src/decorators/req-user.decorator';
 import { usersInterface } from '../users/interfaces/users.interface';
 import { BooksStockService } from '../books-stock/books-stock.service';
@@ -41,7 +41,7 @@ export class OrdersController {
     type: CreateOrderEntity
   })
   async buyBook(
-    @Body(createOrderBooksValidationPipe) body: createOrderDTO,
+    @Body(CreateOrderBooksValidationPipe) body: CreateOrderDTO,
     @ReqUser() user: usersInterface,
   ): Promise<CreateOrderEntity> {
     const { book, bookStock, quantity } = body;

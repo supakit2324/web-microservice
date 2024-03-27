@@ -3,7 +3,7 @@ import { IsNotEmpty, IsNumber, IsString, Min } from 'class-validator';
 import { BooksStockInterface } from 'src/modules/books-stock/interfaces/books-stock.interface';
 import { BooksInterface } from 'src/modules/books/interfaces/books.interface';
 
-export class createOrderDTO {
+export class CreateOrderDTO {
   @ApiProperty({
     type: String,
     example: 'bookId',

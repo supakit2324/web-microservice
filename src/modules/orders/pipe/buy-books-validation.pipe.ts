@@ -5,13 +5,13 @@ import {
   PipeTransform,
 } from '@nestjs/common';
 import { BooksStockService } from 'src/modules/books-stock/books-stock.service';
-import { createOrderDTO } from '../../orders/dto/create-order.dto';
+import { CreateOrderDTO } from '../../orders/dto/create-order.dto';
 import { BooksStockInterface } from 'src/modules/books-stock/interfaces/books-stock.interface';
 import { BooksInterface } from 'src/modules/books/interfaces/books.interface';
 import { BooksService } from 'src/modules/books/books.service';
 
-export class createOrderBooksValidationPipe implements PipeTransform {
-  private readonly logger = new Logger(createOrderBooksValidationPipe.name);
+export class CreateOrderBooksValidationPipe implements PipeTransform {
+  private readonly logger = new Logger(CreateOrderBooksValidationPipe.name);
 
   constructor(
     @Inject(BooksService) private readonly booksService: BooksService,
@@ -19,7 +19,7 @@ export class createOrderBooksValidationPipe implements PipeTransform {
     private readonly booksStockService: BooksStockService,
   ) {}
 
-  async transform(body: createOrderDTO): Promise<createOrderDTO> {
+  async transform(body: CreateOrderDTO): Promise<CreateOrderDTO> {
     let bookStock: BooksStockInterface;
     let book: BooksInterface;
     try {

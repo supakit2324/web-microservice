@@ -6,7 +6,7 @@ import {
   PipeTransform,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
-import { createUserDto } from '../dto/create-users.dto';
+import { CreateUserDto } from '../dto/create-users.dto';
 import { AuthService } from 'src/modules/auth/auth.service';
 import { CreateUserInterface } from '../interfaces/create-user.interfaces';
 import { hash } from 'bcrypt';
@@ -19,7 +19,7 @@ export class registerUserValidationPipe implements PipeTransform {
     private readonly authService: AuthService,
   ) {}
 
-  async transform(body: createUserDto): Promise<createUserDto> {
+  async transform(body: CreateUserDto): Promise<CreateUserDto> {
     let userEmail: CreateUserInterface;
     try {
       userEmail = await this.authService.getByEmail(body.email);
