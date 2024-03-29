@@ -38,7 +38,7 @@ export class OrdersController {
   @Post('buy-book')
   @ApiResponse({
     status: 200,
-    type: CreateOrderEntity
+    type: CreateOrderEntity,
   })
   async buyBook(
     @Body(CreateOrderBooksValidationPipe) body: CreateOrderDTO,
@@ -52,7 +52,6 @@ export class OrdersController {
         quantity: body.quantity,
         totalPrice: book.price * body.quantity,
       });
-      
     } catch (e) {
       this.logger.error(
         `catch on buyBook-userOrder: ${e?.message ?? JSON.stringify(e)}`,
@@ -61,7 +60,7 @@ export class OrdersController {
         message: e?.message ?? e,
       });
     }
-  
+
     try {
       await this.booksStockService.updateStock(body.bookStock.bookId, {
         quantity: bookStock.quantity - quantity,
@@ -81,11 +80,10 @@ export class OrdersController {
       userId: user.userId,
       bookStockId: bookStock.bookId,
       quantity: body.quantity,
-      totalPrice: book.price * body.quantity
-    }
-    return order
+      totalPrice: book.price * body.quantity,
+    };
+    return order;
   }
-  
 
   @Get('history')
   @ApiResponse({

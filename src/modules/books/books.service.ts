@@ -56,8 +56,8 @@ export class BooksService {
           method: 'delete-book',
         },
         bookId,
-      )
-    )
+      ),
+    );
   }
 
   async getPagination(

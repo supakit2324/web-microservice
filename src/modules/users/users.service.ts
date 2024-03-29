@@ -37,7 +37,10 @@ export class UsersService {
     );
   }
 
-  updateUser(userId: string, update: UpdateUserDto): Observable<UsersInterface> {
+  updateUser(
+    userId: string,
+    update: UpdateUserDto,
+  ): Observable<UsersInterface> {
     return this.usersServiceQmq.emit(
       {
         cmd: USER_CMD,
