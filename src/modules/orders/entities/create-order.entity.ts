@@ -15,13 +15,13 @@ export class CreateOrderEntity {
 
     @ApiProperty({
         type: Number,
-        example: 'quantity'
+        example: 1
     })
     quantity: number;
 
     @ApiProperty({
         type: Number,
-        example: 'totalPrice'
+        example: 1
     })
     totalPrice: number;
 }

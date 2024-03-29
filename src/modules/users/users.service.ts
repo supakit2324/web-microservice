@@ -5,6 +5,7 @@ import { CreateUserDto } from './dto/create-users.dto';
 import { Observable } from 'rxjs';
 import { ChangePasswordEntity } from './entities/change-password.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { UsersInterface } from './interfaces/users.interface';
 
 @Injectable()
 export class UsersService {
@@ -36,7 +37,7 @@ export class UsersService {
     );
   }
 
-  updateUser(userId: string, update: UpdateUserDto): Observable<any> {
+  updateUser(userId: string, update: UpdateUserDto): Observable<UsersInterface> {
     return this.usersServiceQmq.emit(
       {
         cmd: USER_CMD,

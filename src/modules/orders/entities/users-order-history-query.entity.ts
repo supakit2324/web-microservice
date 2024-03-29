@@ -1,4 +1,5 @@
 import { ApiProperty } from '@nestjs/swagger';
+import { OrdersHistoryEntity } from './orders-history.entity';
 
 class UsersOrderHistoryQueryEntity {
   @ApiProperty({
@@ -20,9 +21,9 @@ class UsersOrderHistoryQueryEntity {
   count: number;
 
   @ApiProperty({
-    type: [],
+    type: [OrdersHistoryEntity],
   })
-  records: [];
+  records: [OrdersHistoryEntity];
 }
 
 export default UsersOrderHistoryQueryEntity;

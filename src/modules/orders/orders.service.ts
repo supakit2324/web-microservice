@@ -20,7 +20,7 @@ export class OrdersService {
     );
   }
 
-  getHistoryByOrder(
+  async getHistoryByOrder(
     userId: string,
     query: UsersHistoryQueryDto,
   ): Promise<UsersOrderHistoryQueryEntity> {

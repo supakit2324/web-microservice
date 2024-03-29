@@ -8,7 +8,7 @@ import { AmountLoginDTO } from './dto/login.dto';
 export class LoginService {
   @Inject(RMQService.USERS) private readonly loginServiceRMQ: ClientProxy;
 
-  updateAmountLogin(payload: AmountLoginDTO): Observable<any> {
+  updateAmountLogin(payload: AmountLoginDTO): Observable<AmountLoginDTO> {
     return this.loginServiceRMQ.emit(
       {
         cmd: AMOUNT_LOGIN_CMD,

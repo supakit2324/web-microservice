@@ -38,7 +38,6 @@ export class BooksController {
     }
 
     try {
-      query.perPage = 5;
       return this.booksService.getPagination(query);
     } catch (e) {
       this.logger.error(
