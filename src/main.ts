@@ -8,6 +8,7 @@ import 'dayjs/plugin/isToday';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { getQueueName } from './microservice.providers';
+import { setupSwagger } from './swagger';
 
 dayjs.extend(require('dayjs/plugin/timezone'));
 dayjs.extend(require('dayjs/plugin/isToday'));
@@ -19,13 +20,7 @@ async function bootstrap() {
   const provider = configService.get<string>('provider');
   const logger = new Logger();
 
-  const config = new DocumentBuilder()
-    .setTitle('Web Service')
-    .setVersion('1.0')
-    .addBearerAuth()
-    .build();
-  const document = SwaggerModule.createDocument(app, config);
-  SwaggerModule.setup('api', app, document);
+  setupSwagger(app)
 
   app.useGlobalPipes(
     new ValidationPipe({

@@ -1,12 +1,13 @@
 import { CacheModule } from '@nestjs/cache-manager';
 import { Module } from '@nestjs/common';
 import { JwtModule } from '@nestjs/jwt';
-import { ClientsModule, Transport } from '@nestjs/microservices';
+import { ClientsModule } from '@nestjs/microservices';
 import { PassportModule } from '@nestjs/passport';
 import { RMQService } from 'src/constants';
 import { BooksService } from './books.service';
 import { BooksController } from './books.controller';
 import { ConfigModule } from '@nestjs/config';
+import { MakeRMQServiceProvider } from 'src/microservice.providers';
 
 @Module({
   imports: [
@@ -15,18 +16,7 @@ import { ConfigModule } from '@nestjs/config';
     ConfigModule.forRoot(),
     CacheModule.register(),
     ClientsModule.register([
-      {
-        name: RMQService.BOOKS,
-        transport: Transport.RMQ,
-        options: {
-          urls: [process.env.RMQ],
-          noAck: true,
-          queue: RMQService.BOOKS,
-          queueOptions: {
-            durable: true,
-          },
-        },
-      },
+      MakeRMQServiceProvider(RMQService.BOOKS)
     ]),
   ],
   controllers: [BooksController],
