@@ -5,7 +5,6 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import * as dayjs from 'dayjs';
 import 'dayjs/plugin/timezone';
 import 'dayjs/plugin/isToday';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { getQueueName } from './microservice.providers';
 import { setupSwagger } from './swagger';

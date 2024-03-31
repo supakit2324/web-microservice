@@ -2,88 +2,41 @@ import { ESortBooksQuery } from 'src/modules/books/dto/books-query.dto';
 import CategoryEnum from './enum/category.enum';
 
 export class BooksCategoryUtil {
+  static categoryMap: Record<string, CategoryEnum> = {
+    [CategoryEnum.ALL]: CategoryEnum.ALL,
+    [CategoryEnum.ACTION]: CategoryEnum.ACTION,
+    [CategoryEnum.ADVENTURE]: CategoryEnum.ADVENTURE,
+    [CategoryEnum.BUSINESS]: CategoryEnum.BUSINESS,
+    [CategoryEnum.COMEDY]: CategoryEnum.COMEDY,
+    [CategoryEnum.CRAFTS]: CategoryEnum.CRAFTS,
+    [CategoryEnum.CRIME]: CategoryEnum.CRIME,
+    [CategoryEnum.DRAMA]: CategoryEnum.DRAMA,
+    [CategoryEnum.GUIDE]: CategoryEnum.GUIDE,
+    [CategoryEnum.HEALING]: CategoryEnum.HEALING,
+    [CategoryEnum.HUMOR]: CategoryEnum.HUMOR,
+    [CategoryEnum.JOURNAL]: CategoryEnum.JOURNAL,
+    [CategoryEnum.MUSIC]: CategoryEnum.MUSIC,
+    [CategoryEnum.ROMANTIC]: CategoryEnum.ROMANTIC,
+    [CategoryEnum.SPORTS]: CategoryEnum.SPORTS,
+    [CategoryEnum.TRAVEL]: CategoryEnum.TRAVEL,
+  };
+
   static getQueryByCategory(key: string, query?: Record<string, any>) {
-    if (key === CategoryEnum.ALL) {
-      return { ...query };
+    const category = this.categoryMap[key];
+    if (category && category !== CategoryEnum.ALL) {
+      return { ...query, category };
     }
-
-    if (key === CategoryEnum.ACTION) {
-      return { ...query, category: CategoryEnum.ACTION };
-    }
-
-    if (key === CategoryEnum.ADVENTURE) {
-      return { ...query, category: CategoryEnum.ADVENTURE };
-    }
-
-    if (key === CategoryEnum.BUSINESS) {
-      return { ...query, category: CategoryEnum.BUSINESS };
-    }
-
-    if (key === CategoryEnum.COMEDY) {
-      return { ...query, category: CategoryEnum.COMEDY };
-    }
-
-    if (key === CategoryEnum.CRAFTS) {
-      return { ...query, category: CategoryEnum.CRAFTS };
-    }
-
-    if (key === CategoryEnum.CRIME) {
-      return { ...query, category: CategoryEnum.CRIME };
-    }
-
-    if (key === CategoryEnum.DRAMA) {
-      return { ...query, category: CategoryEnum.DRAMA };
-    }
-
-    if (key === CategoryEnum.GUIDE) {
-      return { ...query, category: CategoryEnum.GUIDE };
-    }
-
-    if (key === CategoryEnum.HEALING) {
-      return { ...query, category: CategoryEnum.HEALING };
-    }
-
-    if (key === CategoryEnum.HUMOR) {
-      return { ...query, category: CategoryEnum.HUMOR };
-    }
-
-    if (key === CategoryEnum.JOURNAL) {
-      return { ...query, category: CategoryEnum.JOURNAL };
-    }
-
-    if (key === CategoryEnum.JOURNAL) {
-      return { ...query, category: CategoryEnum.JOURNAL };
-    }
-
-    if (key === CategoryEnum.MUSIC) {
-      return { ...query, category: CategoryEnum.MUSIC };
-    }
-
-    if (key === CategoryEnum.ROMANTIC) {
-      return { ...query, category: CategoryEnum.ROMANTIC };
-    }
-
-    if (key === CategoryEnum.SPORTS) {
-      return { ...query, category: CategoryEnum.SPORTS };
-    }
-
-    if (key === CategoryEnum.TRAVEL) {
-      return { ...query, category: CategoryEnum.TRAVEL };
-    }
+    return { ...query };
   }
 
   static sort(key: string) {
-    if (key === ESortBooksQuery.PRICE_DESC) {
-      return { price: 'desc' };
-    }
-    if (key === ESortBooksQuery.PRICE_ASC) {
-      return { price: 'asc' };
-    }
-    if (key === ESortBooksQuery.QUANTITY_ASC) {
-      return { quantity: 'asc' };
-    }
-    if (key === ESortBooksQuery.QUANTITY_DESC) {
-      return { quantity: 'desc' };
-    }
+    const sortMap: Record<string, Record<string, string>> = {
+      [ESortBooksQuery.PRICE_DESC]: { price: 'desc' },
+      [ESortBooksQuery.PRICE_ASC]: { price: 'asc' },
+      [ESortBooksQuery.QUANTITY_ASC]: { quantity: 'asc' },
+      [ESortBooksQuery.QUANTITY_DESC]: { quantity: 'desc' },
+    };
+
+    return sortMap[key];
   }
 }
